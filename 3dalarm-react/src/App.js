@@ -16,8 +16,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<WelcomeLoginF/>} />
-        <Route path="/manager" element={<Alarms/>}/>
+        <Route path={"/"+process.env.REACT_APP_PROJECT+"/"} element={<WelcomeLoginF/>} />
+        <Route path={"/"+process.env.REACT_APP_PROJECT+"/manager"} element={<Alarms/>}/>
       </Routes>
     </BrowserRouter>
   

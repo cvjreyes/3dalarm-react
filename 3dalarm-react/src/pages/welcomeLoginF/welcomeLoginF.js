@@ -70,7 +70,7 @@ const WelcomeLoginF = () =>{
             .then(json => {
                 localStorage.setItem('token', json.token);
                 secureStorage.setItem('user', json.user)
-                history('/manager');
+                history("/"+process.env.REACT_APP_PROJECT+"/manager");
                 window.location.reload(false);
                 
             })
