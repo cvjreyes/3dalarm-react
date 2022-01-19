@@ -1,5 +1,21 @@
-.dataTable__container{
-    position: relative;
-    width: 2000px;
-    margin-top: 200px;
+.yellow{
+    background: #FFCA42;
+    ;
+  }
+
+.red{
+    background-color: #FF3358;
+}
+
+.white{
+    background-color: white;
+}
+
+.ready__button{
+    font-size: 12px;
+    padding: 1px 3px 1px 3px;
+    color:white;
+    border-radius: 5px;
+    background: #7BD36D;
+    float:right
 }

@@ -70,7 +70,7 @@ const WelcomeLoginF = () =>{
             .then(json => {
                 localStorage.setItem('token', json.token);
                 secureStorage.setItem('user', json.user)
-                history('/3dalarm');
+                history('/manager');
                 window.location.reload(false);
                 
             })

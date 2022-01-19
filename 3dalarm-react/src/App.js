@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -16,7 +17,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<WelcomeLoginF/>} />
-        <Route path="/3dalarm" element={<Alarms/>}/>
+        <Route path="/manager" element={<Alarms/>}/>
       </Routes>
     </BrowserRouter>
   

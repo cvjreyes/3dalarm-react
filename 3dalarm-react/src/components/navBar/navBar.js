@@ -72,7 +72,7 @@ const NavBar = (props) =>{
 
     const handleLogOut = () => {
         localStorage.clear();
-        history.push("/"+process.env.REACT_APP_PROJECT+"/");
+        history("/");
     };
 
     const handleChangePassword = () =>{
