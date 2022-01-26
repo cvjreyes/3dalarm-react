@@ -1,0 +1,27 @@
+.fullLogo__image{
+    position: absolute;
+    width: 400.14px;
+    height: auto;
+    top: 11%;
+    left:3%
+}
+
+.isotracker__table__table__container{
+    margin: 10px 10px 10px 50px;
+    
+}
+
+.alarm__background{
+    height: 100%;
+    width: 100%;
+    background-size: cover; 
+}
+
+.projects__button{
+    margin-top: 350px;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    float: left;
+    margin-bottom: 20px;
+}
