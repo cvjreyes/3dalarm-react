@@ -7,7 +7,7 @@
 }
 
 .isotracker__table__table__container{
-    margin: 10px 10px 10px 50px;
+    margin:10px 10px 10px 25px;
     
 }
 
@@ -18,10 +18,55 @@
 }
 
 .projects__button{
-    margin-top: 350px;
     background-color: white;
     border-radius: 10px;
     font-weight: bold;
     float: left;
     margin-bottom: 20px;
+}
+
+.isotracker__table__container{
+    width: 92.5%;
+    margin-left: 80px;
+    margin-top: 400px;
+    
+}
+
+.isotracker__table__navBar__container{
+    background-color: #338DF1;
+    columns: 2;
+    height: 50px;
+    border-radius: 1em 1em 0em 0em;
+    
+}
+
+.isotracker__table__navBar{
+    height: 50px;
+    color:white;
+    border-radius: 1em 1em 0em 0em;
+}
+
+
+.isotracker__table__tray__and__table__container{
+    border-radius: 0em 0em 1em 1em;
+    border: 1px solid lightgray;
+}
+
+.navBar__button{
+    height: 50px;
+    width: 100px;
+    border: 0;
+    background-color: transparent;
+    margin-left: 10px;
+    border-radius: 1em 1em 1em 1em;
+    transition: 0.3s;
+}
+
+.navBar__button:hover{
+    background-color:#99C6F8;
+}
+
+.navBar__button__text{
+    font-size: 15px;
+    margin-top: 11px;
 }

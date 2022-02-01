@@ -65,12 +65,12 @@ class ProjectsExcelTable extends React.Component{
 
     const settings = {
         licenseKey: 'non-commercial-and-evaluation',
-        colWidths: 650,
+        colWidths: 615,
         //... other options
     }
 
       return (
-        <div style={{position:"absolute", marginTop:"430px"}}>
+        <div style={{position:"absolute"}}>
            
           <div>
 
@@ -104,8 +104,8 @@ class ProjectsExcelTable extends React.Component{
               />
               <br></br>
               <center>
-                  <button class="btn btn-sm btn-info" onClick={() => this.addRow()} style={{marginRight:"5px", fontSize:"16px",width:"60px", borderRadius:"10px"}}>Add</button>
-                  <button class="btn btn-sm btn-success" onClick={() => this.submitChanges()} style={{marginRight:"5px", fontSize:"16px", width:"60px", borderRadius:"10px"}}>Save</button>
+                  <button className="navBar__button" onClick={()=>this.addRow()} style={{ width:"100px", marginLeft:"50px"}}><p className="navBar__button__text">Add</p></button>
+                  <button className="navBar__button" onClick={()=>this.submitChanges()} style={{ width:"100px"}}><p className="navBar__button__text">Save</p></button>              
               </center>
             </div>
           </div>

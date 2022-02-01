@@ -7,6 +7,10 @@
     background-color: #FF3358;
 }
 
+.blue{
+    background-color: #99C6F8;
+}
+
 .white{
     background-color: white;
 }
@@ -17,5 +21,13 @@
     color:white;
     border-radius: 5px;
     background: #7BD36D;
+    float:right
+}
+
+.running__button{
+    font-size: 12px;
+    padding: 1px 3px 1px 3px;
+    background-color:#FFCA42;
+    border-radius: 5px;
     float:right
 }

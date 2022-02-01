@@ -14,7 +14,6 @@ class AlarmDataTable extends React.Component{
     tab: this.props.currentTab,
     selectedRows: [],
     selectedRowsKeys: [],
-    updateData: this.props.updateData,
     username: "",
     acronyms : null,
     steps: [],
@@ -38,10 +37,13 @@ class AlarmDataTable extends React.Component{
         .then(json => {
           let row = null
           let rows = []
-          console.log(json)
           for(let i = 0; i < json.rows.length; i++){
             if(json.rows[i].exec_path !== "" && json.rows[i].exec_path !== null){
-              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              if(json.rows[i].bat_running === 0){
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              }else{
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              }
             }else{
               row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
             }
@@ -54,7 +56,9 @@ class AlarmDataTable extends React.Component{
                 month = "0"+month
               }
               today = today.getFullYear().toString() + month + today.getDate().toString()
-              if (Number(date) - Number(today) < 0){
+              if(json.rows[i].bat_running === 1){
+                row["color"] = "#blue"
+              }else if (Number(date) - Number(today) < 0){
                 row["color"] = "#red"
               }else if((json.rows[i].current_size - json.rows[i].previous_size) < -(json.rows[i].previous_size*15/100)){
                 row["color"] = "#yellow"
@@ -70,8 +74,6 @@ class AlarmDataTable extends React.Component{
   }
 
   async componentDidUpdate(prevProps, prevState){
-
-    if(prevProps !== this.props){
       const options = {
         method: "GET",
         headers: {
@@ -84,10 +86,13 @@ class AlarmDataTable extends React.Component{
         .then(json => {
           let row = null
           let rows = []
-          console.log(json)
           for(let i = 0; i < json.rows.length; i++){
             if(json.rows[i].exec_path !== "" && json.rows[i].exec_path !== null){
-              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              if(json.rows[i].bat_running === 0){
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              }else{
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              }
             }else{
               row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
             }
@@ -100,7 +105,9 @@ class AlarmDataTable extends React.Component{
                 month = "0"+month
               }
               today = today.getFullYear().toString() + month + today.getDate().toString()
-              if (Number(date) - Number(today) < 0){
+              if(json.rows[i].bat_running === 1){
+                row["color"] = "#blue"
+              }else if (Number(date) - Number(today) < 0){
                 row["color"] = "#red"
               }else if((json.rows[i].current_size - json.rows[i].previous_size) < -(json.rows[i].previous_size*15/100)){
                 row["color"] = "#yellow"
@@ -109,14 +116,15 @@ class AlarmDataTable extends React.Component{
             
             rows.push(row)
 
-          }         
+          }       
           this.setState({data : rows});
         })
 
-      }
+      
     }
 
     async runBat(path) {
+      this.setState({update: !this.state.update})
       const body ={
         path : path
       }
@@ -130,6 +138,7 @@ class AlarmDataTable extends React.Component{
     }
 
     await fetch("http://"+process.env.REACT_APP_SERVER+":"+process.env.REACT_APP_NODE_PORT+"/runBat", options)
+    
     }
   
 
@@ -184,21 +193,21 @@ class AlarmDataTable extends React.Component{
         title: <center className="dataTable__header__text">Date</center>,
         dataIndex: 'file_date',
         key: 'file_date',
-        width:"200px",
+        width:"180px",
         ...this.getColumnSearchProps('file_date'),
       },
       {
         title: <center className="dataTable__header__text">Current size</center>,
         dataIndex: 'current_size',
         key: 'current_size',
-        width: "130px",
+        width: "100px",
         ...this.getColumnSearchProps('current_size'),
       },
       {
         title: <center className="dataTable__header__text">Previous size</center>,
         dataIndex: 'previous_size',
         key: 'previous_size',
-        width: "130px",
+        width: "100px",
         ...this.getColumnSearchProps('previous_size'),
       },
     ];
@@ -215,7 +224,7 @@ class AlarmDataTable extends React.Component{
 
     return (
       <div>
-        {this.state.updateData}
+        {this.state.update}
         <div className="dataTable__container">
         <Table className="customTable" bordered = {true} columns={columns}  dataSource={this.state.data} scroll={{y:437}} pagination={{disabled:true, defaultPageSize:5000}} size="small"
         rowClassName= {(record) => record.color.replace('#', '')}/>
