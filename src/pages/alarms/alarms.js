@@ -6,8 +6,9 @@ import NavBar from "../../components/navBar/navBar";
 import AlarmDataTable from "../../components/alarmDataTable/alarmDataTable";
 import ProjectsExcelTable from "../../components/projectsExcelTable/projectsExcelTable";
 import AlarmsExcelTable from "../../components/alarmsExcelTable/alarmsExcelTable";
-
-
+import FolderIcon from "../../assets/images/FolderOpen.png"
+import ClockIcon from "../../assets/images/clock.png"
+import BackIcon from "../../assets/images/back.svg"
 
 const Alarms = () =>{
     document.body.style.zoom = 0.9
@@ -35,53 +36,53 @@ const Alarms = () =>{
 
     if(tab === "view"){
         table = <AlarmDataTable update={update}/>
-        manageProjectsBtn = <button className="navBar__button" onClick={()=>setTab("projects")} style={{ width:"140px"}}><p className="navBar__button__text">Manage projects</p></button>
-        manageAlarmsBtn = <button className="navBar__button" onClick={()=>setTab("alarms")} style={{ width:"140px"}}><p className="navBar__button__text">Manage alarms</p></button>
-        refreshButton = <button className="navBar__button" onClick={()=>refresh()} style={{ width:"100px", marginLeft:"1540px"}}><p className="navBar__button__text">Refresh files</p></button>
+        manageProjectsBtn = <button className="navBar__button" onClick={()=>setTab("projects")} style={{ width:"170px"}}><p className="navBar__button__text"><img src={FolderIcon} alt="pro" className="panel__icon"/>Manage projects</p></button>
+        manageAlarmsBtn = <button className="navBar__button" onClick={()=>setTab("alarms")} style={{ width:"170px"}}><p className="navBar__button__text"><img src={ClockIcon} alt="alarm" className="panel__icon"/>Manage alarms</p></button>
+        refreshButton = <button className="navBar__button" onClick={()=>refresh()} style={{ width:"100px", marginLeft:"1480px"}}><p className="navBar__button__text">Refresh files</p></button>
     }else if(tab === "projects"){
         table = <ProjectsExcelTable/>
-        manageProjectsBtn = <button className="navBar__button" onClick={()=>setTab("view")} style={{ width:"100px"}}><p className="navBar__button__text">Back</p></button>
+        manageProjectsBtn = <button className="navBar__button" onClick={()=>setTab("view")} style={{ width:"100px"}}><p className="navBar__button__text"><img src={BackIcon} alt="b1" className="panel__icon"/>Back</p></button>
         manageAlarmsBtn = null
         refreshButton = null
     }else{
         table = <AlarmsExcelTable/>
         manageProjectsBtn = null
-        manageAlarmsBtn = <button className="navBar__button" onClick={()=>setTab("view")} style={{ width:"100px"}}><p className="navBar__button__text">Back</p></button>
+        manageAlarmsBtn = <button className="navBar__button" onClick={()=>setTab("view")} style={{ width:"100px"}}><p className="navBar__button__text"><img src={BackIcon} alt="b2" className="panel__icon"/>Back</p></button>
         refreshButton = null
 
     }
 
     return(
-        <body>
+        <div> 
         <NavBar/>
-        <div className="alarm__background">
-            <img src={FullTrackerLogo} alt="technipLogo" className="fullLogo__image"/>
+            <div className="isotracker__row">
+                <img src={FullTrackerLogo} alt="technipLogo" className="fullLogo__image"/>
 
-
+            </div>
             <table className="isotracker__table__container">
-                      <tr className="isotracker__table__navBar__container" style={{height:"65px "}}>
-                          <th  className="isotracker__table__navBar">
-                              <div style={{display:"flex", height:"50px"}}>
-                                 {manageAlarmsBtn}
-                                 {manageProjectsBtn}
-                                 {refreshButton}  
-                              </div>                           
-                               
-                          </th>
-                      </tr>
-                      <tr className="isotracker__table__tray__and__table__container">
-                          <td className="discplines__table__table">
-                              <div  style={{height: "400px", width:"1900px"}} className="isotracker__table__table__container">
-                                {table}
-                              </div>
-                          </td>
-                          
-                      </tr>
-                  </table>
+                <tr className="isotracker__table__navBar__container" style={{height:"65px "}}>
+                    <th  className="isotracker__table__navBar">
+                        <div style={{display:"flex", height:"50px"}}>
+                            {manageAlarmsBtn}
+                            {manageProjectsBtn}
+                            {refreshButton}  
+                        </div>                           
+                        
+                    </th>
+                </tr>
+                <tr className="isotracker__table__tray__and__table__container">
+                    <td className="discplines__table__table">
+                        <div  style={{height: "400px", width:"1900px"}} className="isotracker__table__table__container">
+                        {table}
+                        </div>
+                    </td>
+                    
+                </tr>
+            </table>
+        
+
+
         </div>
-
-
-        </body>
     );
 };
 

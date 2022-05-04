@@ -1,9 +1,9 @@
 .fullLogo__image{
     position: absolute;
-    width: 400.14px;
+    width: 370.14px;
     height: auto;
     top: 11%;
-    left:3%
+    left:4%
 }
 
 .isotracker__table__table__container{
@@ -13,7 +13,6 @@
 
 .alarm__background{
     height: 100%;
-    width: 100%;
     background-size: cover; 
 }
 
@@ -28,8 +27,7 @@
 .isotracker__table__container{
     width: 92.5%;
     margin-left: 80px;
-    margin-top: 400px;
-    
+    margin-top: 20px;
 }
 
 .isotracker__table__navBar__container{
@@ -70,3 +68,23 @@
     font-size: 15px;
     margin-top: 11px;
 }
+
+.panel__icon{
+    height: auto;
+    width: 30px;
+    margin-top: -5px;
+}
+
+.discplines__table__table{
+    border: 1px solid lightgray;
+    display: block;
+}
+
+
+.isotracker__row{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin-bottom: 400px
+}
+
