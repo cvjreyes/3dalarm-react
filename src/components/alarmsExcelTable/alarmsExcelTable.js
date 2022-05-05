@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import { HotTable } from '@handsontable/react';
 import 'handsontable/dist/handsontable.full.css';
 import Handsontable from 'handsontable';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class AlarmsExcelTable extends React.Component{
   state = {
@@ -30,7 +30,7 @@ class AlarmsExcelTable extends React.Component{
       var rows = []
       var row = null
       for(let i = 0; i < json.rows.length; i++){
-          row = {"Project": json.rows[i].name, "Type": json.rows[i].file_type, "Path": json.rows[i].file_path, "Executable path": json.rows[i].exec_path, "Date": json.rows[i].file_date, "Current size": json.rows[i].current_size, "Previous size": json.rows[i].previous_size, "id": json.rows[i].id}
+          row = {"Project": json.rows[i].name, "Type": json.rows[i].file_type, "Path": json.rows[i].file_path, "Executable path": json.rows[i].exec_path, "Date": json.rows[i].file_date, "Current size": json.rows[i].current_size, "Previous size": json.rows[i].previous_size, "Priority": json.rows[i].priority, "id": json.rows[i].id}
           rows.push(row)
       }
       this.setState({data : rows, selectedRows: []});
@@ -53,7 +53,7 @@ class AlarmsExcelTable extends React.Component{
 
   addRow(){
     let rows = this.state.data
-    rows.push({"Project": "", "Path": "", "Executable path": "", "id": ""})
+    rows.push({"Project": "", "Path": "", "Executable path": "", "Priority": "", "id": ""})
     this.setState({data: rows})
   }
   
@@ -71,7 +71,9 @@ class AlarmsExcelTable extends React.Component{
     fetch("http://"+process.env.REACT_APP_SERVER+":"+process.env.REACT_APP_NODE_PORT+"/submitAlarms", options)
     .then(response => response.json())
     .then(json =>{
-
+      if(json.success){
+        this.props.success()
+      }
     })
   }
  
@@ -80,7 +82,7 @@ class AlarmsExcelTable extends React.Component{
 
     const settings = {
         licenseKey: 'non-commercial-and-evaluation',
-        colWidths: 615,
+        colWidths: 465,
         //... other options
     }
 
@@ -91,14 +93,14 @@ class AlarmsExcelTable extends React.Component{
             <div id="hot-app">
               <HotTable
                 data={this.state.data}
-                colHeaders = {["<b>PROJECT</b>", "<b>PATH</b>", "<b>EXECUTABLE PATH</b>"]}
+                colHeaders = {["<b>PROJECT</b>", "<b>PATH</b>", "<b>EXECUTABLE PATH</b>","<b>PRIORITY</b>"]}
                 rowHeaders={true}
                 width="2040"
                 height="300"
                 settings={settings} 
                 manualColumnResize={true}
                 manualRowResize={true}
-                columns= {[{ data: "Project", type: Handsontable.cellTypes.dropdown, strict:"true", source: this.state.projectsData}, { data: "Path"}, {data: "Executable path"}]}
+                columns= {[{ data: "Project", type: Handsontable.cellTypes.dropdown, strict:"true", source: this.state.projectsData}, { data: "Path"}, {data: "Executable path"}, {data: "Priority", type:"numeric"}]}
                 filters={true}
                 dropdownMenu= {[
                     'make_read_only',
@@ -118,9 +120,9 @@ class AlarmsExcelTable extends React.Component{
               />
               <br></br>
               <center>
-                  <button className="navBar__button" onClick={()=>this.addRow()} style={{ width:"100px", marginLeft:"50px"}}><p className="navBar__button__text">Add</p></button>
-                  <button className="navBar__button" onClick={()=>this.submitChanges()} style={{ width:"100px"}}><p className="navBar__button__text">Save</p></button>              
-                </center>
+                <button class="btn btn-sm btn-info" onClick={() => this.addRow()} style={{marginRight:"5px", fontSize:"16px",width:"60px", borderRadius:"10px", marginBottom: "30px"}}>Add</button>
+                <button class="btn btn-sm btn-success" onClick={() => this.submitChanges()} style={{marginRight:"5px", fontSize:"16px", width:"60px", borderRadius:"10px", marginBottom: "30px"}}>Save</button>
+              </center>
             </div>
           </div>
          

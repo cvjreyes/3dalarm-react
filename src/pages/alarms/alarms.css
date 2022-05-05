@@ -22,6 +22,7 @@
     font-weight: bold;
     float: left;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .isotracker__table__container{
@@ -58,6 +59,7 @@
     margin-left: 10px;
     border-radius: 1em 1em 1em 1em;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .navBar__button:hover{
@@ -85,6 +87,17 @@
     display: flex;
     flex-direction: row;
     flex: 1;
-    margin-bottom: 400px
+    margin-bottom: 350px
 }
 
+.alert-shown {
+    opacity: 1;
+    transition: all 250ms linear;
+    position: fixed
+  }
+
+.alert-hidden {
+    opacity: 0;
+    transition: all 250ms linear 4s;
+    position: fixed
+}

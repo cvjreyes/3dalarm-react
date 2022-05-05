@@ -9,12 +9,14 @@ import AlarmsExcelTable from "../../components/alarmsExcelTable/alarmsExcelTable
 import FolderIcon from "../../assets/images/FolderOpen.png"
 import ClockIcon from "../../assets/images/clock.png"
 import BackIcon from "../../assets/images/back.svg"
+import AlertF from "../../components/alert/alert"
 
 const Alarms = () =>{
     document.body.style.zoom = 0.9
 
     const [tab, setTab] = useState("view")
     const [update, setUpdate] = useState(false)
+    const [success, setSuccess] = useState(false)
 
 
     async function refresh(){
@@ -40,12 +42,12 @@ const Alarms = () =>{
         manageAlarmsBtn = <button className="navBar__button" onClick={()=>setTab("alarms")} style={{ width:"170px"}}><p className="navBar__button__text"><img src={ClockIcon} alt="alarm" className="panel__icon"/>Manage alarms</p></button>
         refreshButton = <button className="navBar__button" onClick={()=>refresh()} style={{ width:"100px", marginLeft:"1480px"}}><p className="navBar__button__text">Refresh files</p></button>
     }else if(tab === "projects"){
-        table = <ProjectsExcelTable/>
+        table = <ProjectsExcelTable success={() => setSuccess(true)}/>
         manageProjectsBtn = <button className="navBar__button" onClick={()=>setTab("view")} style={{ width:"100px"}}><p className="navBar__button__text"><img src={BackIcon} alt="b1" className="panel__icon"/>Back</p></button>
         manageAlarmsBtn = null
         refreshButton = null
     }else{
-        table = <AlarmsExcelTable/>
+        table = <AlarmsExcelTable success={() => setSuccess(true)}/>
         manageProjectsBtn = null
         manageAlarmsBtn = <button className="navBar__button" onClick={()=>setTab("view")} style={{ width:"100px"}}><p className="navBar__button__text"><img src={BackIcon} alt="b2" className="panel__icon"/>Back</p></button>
         refreshButton = null
@@ -55,6 +57,9 @@ const Alarms = () =>{
     return(
         <div> 
         <NavBar/>
+            <div className={`alert alert-success ${success ? 'alert-shown' : 'alert-hidden'}`} onTransitionEnd={() => setSuccess(false)}>
+                <AlertF type="success" text="Changes saved!"/>
+            </div>
             <div className="isotracker__row">
                 <img src={FullTrackerLogo} alt="technipLogo" className="fullLogo__image"/>
 

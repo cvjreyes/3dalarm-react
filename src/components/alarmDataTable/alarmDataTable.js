@@ -40,12 +40,12 @@ class AlarmDataTable extends React.Component{
           for(let i = 0; i < json.rows.length; i++){
             if(json.rows[i].exec_path !== "" && json.rows[i].exec_path !== null){
               if(json.rows[i].bat_running === 0){
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }else{
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }
             }else{
-              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
             }
             
             if(json.rows[i].file_date){
@@ -92,12 +92,12 @@ class AlarmDataTable extends React.Component{
           for(let i = 0; i < json.rows.length; i++){
             if(json.rows[i].exec_path !== "" && json.rows[i].exec_path !== null){
               if(json.rows[i].bat_running === 0){
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }else{
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }
             }else{
-              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
             }
             
             if(json.rows[i].file_date){
@@ -213,9 +213,17 @@ class AlarmDataTable extends React.Component{
         dataIndex: 'name',
         key: 'name',
         width:"300px", 
-        ...this.getColumnSearchProps('name'),
         sorter:{
           compare: (a, b) => a.name.localeCompare(b.name),
+        },
+      },
+      {
+        title: <center className="dataTable__header__text">Priority</center>,
+        dataIndex: 'priority',
+        key: 'priority',
+        width:"100px", 
+        sorter:{
+          compare: (a, b) => a.priority - b.priority
         },
       },
       {
@@ -223,7 +231,6 @@ class AlarmDataTable extends React.Component{
         dataIndex: 'file_type',
         key: 'file_type',
         width: "100px",
-        ...this.getColumnSearchProps('file_type'),
         sorter:{
           compare: (a, b) => a.file_type.localeCompare(b.file_type),
         },
@@ -232,13 +239,11 @@ class AlarmDataTable extends React.Component{
         title: <center className="dataTable__header__text">Path</center>,
         dataIndex: 'file_path',
         key: 'file_path',
-        ...this.getColumnSearchProps('file_path'),
       },
       {
         title: <center className="dataTable__header__text">Executable</center>,
         dataIndex: 'exec_path',
         key: 'exec_path',
-        ...this.getColumnSearchProps('exec_path'),
         sorter:{
           compare: (a, b) => a.exec_path.localeCompare(b.exec_path),
         },
@@ -248,21 +253,18 @@ class AlarmDataTable extends React.Component{
         dataIndex: 'file_date',
         key: 'file_date',
         width:"180px",
-        ...this.getColumnSearchProps('file_date'),
       },
       {
         title: <center className="dataTable__header__text">Current size</center>,
         dataIndex: 'current_size',
         key: 'current_size',
         width: "100px",
-        ...this.getColumnSearchProps('current_size'),
       },
       {
         title: <center className="dataTable__header__text">Previous size</center>,
         dataIndex: 'previous_size',
         key: 'previous_size',
         width: "100px",
-        ...this.getColumnSearchProps('previous_size'),
       },
     ];
     

@@ -56,7 +56,9 @@ class ProjectsExcelTable extends React.Component{
     fetch("http://"+process.env.REACT_APP_SERVER+":"+process.env.REACT_APP_NODE_PORT+"/submitProjects", options)
     .then(response => response.json())
     .then(json =>{
-
+      if(json.success){
+        this.props.success()
+      }
     })
   }
  
@@ -104,8 +106,8 @@ class ProjectsExcelTable extends React.Component{
               />
               <br></br>
               <center>
-                  <button className="navBar__button" onClick={()=>this.addRow()} style={{ width:"100px", marginLeft:"50px"}}><p className="navBar__button__text">Add</p></button>
-                  <button className="navBar__button" onClick={()=>this.submitChanges()} style={{ width:"100px"}}><p className="navBar__button__text">Save</p></button>              
+                <button class="btn btn-sm btn-info" onClick={() => this.addRow()} style={{marginRight:"5px", marginLeft:"-100px", fontSize:"16px",width:"60px", borderRadius:"10px", marginBottom: "30px"}}>Add</button>
+                <button class="btn btn-sm btn-success" onClick={() => this.submitChanges()} style={{marginRight:"5px", fontSize:"16px", width:"60px", borderRadius:"10px", marginBottom: "30px"}}>Save</button>
               </center>
             </div>
           </div>
