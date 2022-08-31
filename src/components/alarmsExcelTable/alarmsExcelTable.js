@@ -24,36 +24,41 @@ class AlarmsExcelTable extends React.Component{
         },
     }
 
-  fetch("http://"+process.env.REACT_APP_SERVER+":"+process.env.REACT_APP_NODE_PORT+"/getAlarms", options)
-    .then(response => response.json())
-    .then(json => {
-      var rows = []
-      var row = null
-      for(let i = 0; i < json.rows.length; i++){
-          row = {"Project": json.rows[i].name, "Type": json.rows[i].file_type, "Path": json.rows[i].file_path, "Executable path": json.rows[i].exec_path, "Date": json.rows[i].file_date, "Current size": json.rows[i].current_size, "Previous size": json.rows[i].previous_size, "Priority": json.rows[i].priority, "id": json.rows[i].id}
-          rows.push(row)
-      }
-      this.setState({data : rows, selectedRows: []});
+    await fetch("http://"+process.env.REACT_APP_SERVER+":"+process.env.REACT_APP_NODE_PORT+"/getAlarms", options)
+      .then(response => response.json())
+      .then(async json => {
+        var rows = []
+        var row = null
+        for(let i = 0; i < json.rows.length; i++){
+            row = {"Project": json.rows[i].name, "Path": json.rows[i].file_path, "Executable path": json.rows[i].exec_path, "Date": json.rows[i].file_date, "Current size": json.rows[i].current_size, "Previous size": json.rows[i].previous_size, "Priority": json.rows[i].priority, "id": json.rows[i].id, "project_id": json.rows[i].project_id}
+            if(json.rows[i].file_path){
+              row["Type"] = json.rows[i].file_path.split(".").pop()
+            }else{
+              row["Type"] = ""
+            }
+            rows.push(row)
+        }
+        this.setState({data : rows, selectedRows: []});
 
-    fetch("http://"+process.env.REACT_APP_SERVER+":"+process.env.REACT_APP_NODE_PORT+"/getProjects", options)
-    .then(response => response.json())
-    .then(json => {
-      var rows = []
-      for(let i = 0; i < json.rows.length; i++){
+      await fetch("http://"+process.env.REACT_APP_SERVER+":"+process.env.REACT_APP_NODE_PORT+"/getProjects", options)
+      .then(response => response.json())
+      .then(json => {
+        var rows = []
+        for(let i = 0; i < json.rows.length; i++){
 
-          rows.push(json.rows[i].name)
-      }
-      this.setState({projectsData : rows});
+            rows.push(json.rows[i].name)
+        }
+        this.setState({projectsData : rows});
 
-  })
+      })
 
 
-  })
+    })
   }
 
   addRow(){
     let rows = this.state.data
-    rows.push({"Project": "", "Path": "", "Executable path": "", "Priority": "", "id": ""})
+    rows.push({"Project": "", "Path": "", "Executable path": "", "Priority": "",  "id": ""})
     this.setState({data: rows})
   }
   

@@ -10,7 +10,7 @@ class AlarmDataTable extends React.Component{
     searchedColumn: '',
     data: [],
     displayData: [],
-    filterData: ["", "", "", "", "", "", "", ""],
+    filterData: ["", "", "", "", "", "", "", "", "", "", ""],
     tab: this.props.currentTab,
     selectedRows: [],
     selectedRowsKeys: [],
@@ -40,12 +40,18 @@ class AlarmDataTable extends React.Component{
           for(let i = 0; i < json.rows.length; i++){
             if(json.rows[i].exec_path !== "" && json.rows[i].exec_path !== null){
               if(json.rows[i].bat_running === 0){
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }else{
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }
             }else{
-              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+            }
+
+            if(json.rows[i].file_path){
+              row.file_type = json.rows[i].file_path.split(".").pop()
+            }else{
+              row.file_type = " "
             }
             
             if(json.rows[i].file_date){
@@ -68,7 +74,7 @@ class AlarmDataTable extends React.Component{
             rows.push(row)
 
           }         
-          const filterRow = [{name: <div><input type="text" className="filter__input" placeholder="Project" onChange={(e) => this.filter(2, e.target.value)}/></div>, file_type: <div><input type="text" className="filter__input" placeholder="Type" onChange={(e) => this.filter(5, e.target.value)}/></div>, file_path: <div><input type="text" className="filter__input" placeholder="Path" onChange={(e) => this.filter(6,e.target.value)}/></div>, exec_path: <div><input type="text" className="filter__input" placeholder="Executable" onChange={(e) => this.filter(7,e.target.value)}/></div>, file_date: <div><input type="text" className="filter__input" placeholder="Date" onChange={(e) => this.filter(8,e.target.value)}/></div>, current_size: <div><input type="text" className="filter__input" placeholder="Current size" onChange={(e) => this.filter(9,e.target.value)}/></div>, previous_size: <div><input type="text" className="filter__input" placeholder="Previous size" onChange={(e) => this.filter(10, e.target.value)}/></div>}]
+          const filterRow = [{name: <div><input type="text" className="filter__input" placeholder="Project" onChange={(e) => this.filter(2, e.target.value)}/></div>, priority: <div><input type="text" className="filter__input" placeholder="Priority" onChange={(e) => this.filter(3, e.target.value)}/></div>, file_type: <div><input type="text" className="filter__input" placeholder="Type" onChange={(e) => this.filter(12, e.target.value)}/></div>, file_path: <div><input type="text" className="filter__input" placeholder="Path" onChange={(e) => this.filter(6,e.target.value)}/></div>, exec_path: <div><input type="text" className="filter__input" placeholder="Executable" onChange={(e) => this.filter(7,e.target.value)}/></div>, file_date: <div><input type="text" className="filter__input" placeholder="Date" onChange={(e) => this.filter(8,e.target.value)}/></div>, current_size: <div><input type="text" className="filter__input" placeholder="Current size" onChange={(e) => this.filter(9,e.target.value)}/></div>, previous_size: <div><input type="text" className="filter__input" placeholder="Previous size" onChange={(e) => this.filter(10, e.target.value)}/></div>}]
 
           await this.setState({data : rows, displayData: rows, filters: filterRow});
         })
@@ -92,12 +98,18 @@ class AlarmDataTable extends React.Component{
           for(let i = 0; i < json.rows.length; i++){
             if(json.rows[i].exec_path !== "" && json.rows[i].exec_path !== null){
               if(json.rows[i].bat_running === 0){
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="ready__button" onClick={()=>this.runBat(json.rows[i].exec_path)}>RUN</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }else{
-                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+                row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_path: json.rows[i].file_path, exec_path: <div>{json.rows[i].exec_path} <button className="running__button" disabled>RUNNING</button></div>, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
               }
             }else{
-              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_type: json.rows[i].file_type, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+              row = {key:i, id: json.rows[i].id, name: json.rows[i].name, priority: json.rows[i].priority, code: json.rows[i].code, server: json.rows[i].server, file_path: json.rows[i].file_path, exec_path: json.rows[i].exec_path, file_date: json.rows[i].file_date, current_size: (json.rows[i].current_size/1000000).toFixed(2), previous_size: (json.rows[i].previous_size/1000000).toFixed(2), color:"#white"}
+            }
+
+            if(json.rows[i].file_path){
+              row.file_type = json.rows[i].file_path.split(".").pop()
+            }else{
+              row.file_type = ""
             }
             
             if(json.rows[i].file_date){
@@ -154,7 +166,7 @@ class AlarmDataTable extends React.Component{
       let fil, exists = null
       for(let i = 0; i < auxDisplayData.length; i++){
         exists = true
-        for(let column = 0; column < Object.keys(auxDisplayData[i]).length-1; column ++){
+        for(let column = 0; column < Object.keys(auxDisplayData[i]).length; column ++){
           
           fil = Object.keys(auxDisplayData[i])[column]
           if(fil === "exec_path"){
@@ -166,9 +178,11 @@ class AlarmDataTable extends React.Component{
               exists = false
             }
           }else{
+            
             if(auxDisplayData[i][fil]){
-              if(this.state.filterData[column] !== "" && this.state.filterData[column] && !auxDisplayData[i][fil].includes(this.state.filterData[column])){
+              if(this.state.filterData[column] !== "" && this.state.filterData[column] && !auxDisplayData[i][fil].toString().includes(this.state.filterData[column])){
                 exists = false
+                
               }
             }else if(!auxDisplayData[i][fil] && this.state.filterData[column]){
               exists = false
@@ -280,7 +294,7 @@ class AlarmDataTable extends React.Component{
       <div>
         {this.state.update}
         <div className="dataTable__container">
-        <Table className="customTable" bordered = {true} columns={columns}  dataSource={this.state.displayData} scroll={{y:437}} pagination={{disabled:true, defaultPageSize:5000}} size="small"
+        <Table className="customTable" bordered = {true} columns={columns}  dataSource={this.state.displayData} scroll={{y:220}} pagination={{disabled:true, defaultPageSize:5000}} size="small"
         rowClassName= {(record) => record.color.replace('#', '')}/>
           <Table className="filter__table" pagination={{disabled:true}} scroll={{y:437}} showHeader = {false} bordered = {true} columns={columns} dataSource={this.state.filters} size="small"/> 
         </div>
